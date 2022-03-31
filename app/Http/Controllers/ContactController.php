@@ -23,8 +23,16 @@ class ContactController extends Controller
   
     public function store(Request $request)
     {
-        $input = $request->all();
-        Contact::create($input);
+        // $input = $request->all();
+        // Contact::create($input);
+
+        // <<<<<=====================Method 2============================>>>>>
+
+        Contact::create([
+            'name' => $request->input('name'),
+            'address' => $request->input('address'),
+            'mobile' => $request->input('mobile')
+        ]);
         return redirect('contact')->with('flash_message', 'Contact Addedd!');  
     }
  
@@ -45,9 +53,16 @@ class ContactController extends Controller
   
     public function update(Request $request, $id)
     {
-        $contact = Contact::find($id);
-        $input = $request->all();
-        $contact->update($input);
+        // $contact = Contact::find($id);
+        // $input = $request->all();
+        // $contact->update($input);
+
+       // <<<<<=====================Method 2============================>>>>>
+        $contact = Contact::where('id',$id)->update([
+            'name' => $request->input('name'),
+            'address' => $request->input('address'),
+            'mobile' => $request->input('mobile')
+        ]);
         return redirect('contact')->with('flash_message', 'Contact Updated!');  
     }
  
